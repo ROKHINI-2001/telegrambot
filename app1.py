@@ -1,7 +1,9 @@
 from telegram.ext import Updater, MessageHandler,Filters
 from Adafruit_IO import Client
+import os
+aio = Client('Rokhini',os.getenv('Rokhini'))
 def turn_on_light(bot,update):
-  aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
+  #aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
   aio.send('bedroom-light', 1)
   data = aio.receive('bedroom-light')
   print(f'Received value: {data.value}')
@@ -10,7 +12,7 @@ def turn_on_light(bot,update):
   bot.message.reply_text('light is turned on')
   update.bot.sendPhoto(chat_id=chat_id,photo=path)
 def turn_off_light(bot,update):
-  aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
+  #aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
   aio.send('bedroom-light',0)
   data = aio.receive('bedroom-light')
   print(f'Received value: {data.value}')
@@ -19,7 +21,7 @@ def turn_off_light(bot,update):
   path='https://thumbs.dreamstime.com/z/light-bulb-watt-off-white-background-34641378.jpg'
   update.bot.sendPhoto(chat_id=chat_id,photo=path)
 def turn_on_fan(bot,update):
-  aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
+  #aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
   aio.send('bedroom-fan',1)
   data = aio.receive('bedroom-fan')
   print(f'Received value: {data.value}')
@@ -28,7 +30,7 @@ def turn_on_fan(bot,update):
   bot.message.reply_text('fan is turned on')
   update.bot.sendPhoto(chat_id=chat_id,photo=path)
 def turn_off_fan(bot,update):
-  aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
+  #aio = Client('Rokhini', 'aio_TyyC17mIBfY3IbbRuUJGZ8XMwoLJ')
   aio.send('bedroom-fan',0)
   data = aio.receive('bedroom-fan')
   print(f'Received value: {data.value}')
@@ -51,7 +53,7 @@ def main(bot,update):
   else:
     bot.message.reply_text('invalid')
 
-BOT_TOKEN = '1940735474:AAFCvOitAl0KDUlMavE4kwvZGnTvdVX9CRs'
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 u = Updater(BOT_TOKEN,use_context=True)
 dp = u.dispatcher
 dp.add_handler(MessageHandler(Filters.text,main))
